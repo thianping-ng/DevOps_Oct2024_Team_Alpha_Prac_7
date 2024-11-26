@@ -17,7 +17,7 @@ jobs:
     steps:
       #Step 1: checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v3 #v3
+        uses: actions/checkout@v4 #v3
       - name: print content of repo
         run:  |
           ls
@@ -38,7 +38,7 @@ jobs:
       - name: Run tests
         run:  |
           mkdir -p test-results
-          behave features/  --junit --junit-directory=test-results
+          behave features/ --junit --junit-directory=test-results
           ls  test-results/
       
       #Step 5a: Upload Test results
