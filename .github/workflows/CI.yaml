@@ -69,7 +69,7 @@ jobs:
                 text: "The behave tests ran successfully or failed depending on the outcome."
               }
             });
-            console.log(checRun);
+            console.log(checkRun);
       #Step 6a: Create Issue
       - name: Create an issue if tests fail
         if: failure() #run this only if the previous steps fail
