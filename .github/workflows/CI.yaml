@@ -53,10 +53,23 @@ jobs:
       #Step: 5b: Publish Test results
       - name: Publish test Results
         if: always() #this will run regardless of success/failure
-        run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{"text":"Test results are available. Check the build logs for more details."}' \
-          $SLACK_WEBHOOK_URL
+        uses:  actions/github-script@v6
+        with:  
+          script: |
+            const checkRun = await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: "Behave Tests",
+              head_sha: context.sha,
+              status: "completed",
+              conclusion: "${{job.status}}",  //  'success' or 'failure'
+              output: {
+                title:  "Behave Tests Results",
+                summary:  "See the test logs  for more details.",
+                text: "The behave tests ran successfully or failed depending on the outcome."
+              }
+            });
+            console.log(checkRun);
       #Step 6a: Create Issue
       - name: Create an issue if tests fail
         if: failure() #run this only if the previous steps fail
