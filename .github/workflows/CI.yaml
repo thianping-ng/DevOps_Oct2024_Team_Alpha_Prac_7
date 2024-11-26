@@ -46,7 +46,7 @@ jobs:
       
       #Step 5a: Upload Test results
       - name: Upload Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: junit-test-results
           path: test-results/
@@ -68,7 +68,7 @@ jobs:
                 summary:  "See the test logs  for more details.",
                 text: "The behave tests ran successfully or failed depending on the outcome."
               }
-            }};
+            });
             console.log(checRun);
       #Step 6a: Create Issue
       - name: Create an issue if tests fail
@@ -78,11 +78,3 @@ jobs:
           title:  "Test failure detected"
           body: "Test have failed in the behave tests. please review the logs."
           labels: "bug"
-      #Step 6b: Annotate test failure
-      - name: Annotate test failures
-        if: failure() #only run on failure
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const issueComment = context.issue({ body: "Test failures detected in the Behave tests. Check the results." });
-            await github.rest.issues.createComment(issueComment);
