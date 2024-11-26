@@ -43,9 +43,25 @@ jobs:
       
       #Step 5a: Upload Test results
       - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: junit-test-results
+          path: test-results/
       #Step: 5b: Publish Test results
       - name: Publish test Results
       #Step 6a: Create Issue
-      - name: Create an issue
+      - name: Create an issue if tests fail
+        if: failure() #run this only if the previous steps fail
+        uses: peter-evans/create-issue-from-file@v3
+        with: 
+          title:  "Test failure detected"
+          body: "Test have failed in the behave tests. please review the logs."
+          labels: "bug"
       #Step 6b: Annotate test failure
       - name: Annotate test failures
+        if: failure() #only run on failure
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issuesComment = context.issue({body:  "Test failures detected in the behave test. check the results."});
+            await github.rest.issues.createComment(issueComment);
