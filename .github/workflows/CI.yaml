@@ -53,10 +53,10 @@ jobs:
       #Step: 5b: Publish Test results
       - name: Publish test Results
         if: always() #this will run regardless of success/failure
-        uses: actions/github-script@v6
-        with:
-          name:  junit-test-results
-          path:  test-result/
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":"Test results are available. Check the build logs for more details."}' \
+          $SLACK_WEBHOOK_URL
       #Step 6a: Create Issue
       - name: Create an issue if tests fail
         if: failure() #run this only if the previous steps fail
