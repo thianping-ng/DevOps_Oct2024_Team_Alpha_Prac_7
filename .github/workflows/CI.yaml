@@ -1,1 +1,51 @@
+name: CI Test (Behave) Pipeline
 
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  behave-tests:
+    runs-on: ubuntu-latest # use linux os
+
+    permissions:
+      issues: write
+      checks: write
+      pull-requests: write
+    
+    steps:
+      #Step 1: checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3 #v3
+      - name: print content of repo
+        run:  |
+          ls
+      
+      #Step 2: setup python environment
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9' #specify the python version
+      
+      #Step 3: install dependencies
+      - name: Install dependencies
+        run:  |
+          python -m pip install --upgrade pip
+          pip install behave
+      
+      #Step 4: run tests from the features folder
+      - name: Run tests
+        run:  |
+          mkdir -p test-results
+          behave features/  --junit --junit-directory=test-results
+          ls  test-results/
+      
+      #Step 5a: Upload Test results
+      - name: Upload Test Results
+      #Step: 5b: Publish Test results
+      - name: Publish test Results
+      #Step 6a: Create Issue
+      - name: Create an issue
+      #Step 6b: Annotate test failure
+      - name: Annotate test failures

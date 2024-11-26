@@ -1,5 +1,5 @@
 from behave import *
-from calculator import add, subtract, multiplication, division, cosine, sine, tangent
+from calculators import add, subtract, multiplication, division, cosine, sine, tangent
 
 @given('the calculator is intialized')
 def step_impl(context):
