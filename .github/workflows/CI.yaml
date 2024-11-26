@@ -20,7 +20,7 @@ jobs:
     steps:
       #Step 1: checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v4 #v3
+        uses: actions/checkout@v3 #v3
       - name: print content of repo
         run:  |
           ls
@@ -66,5 +66,5 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const issuesComment = context.issue({body:  "Test failures detected in the behave test. check the results."});
+            const issueComment = context.issue({ body: "Test failures detected in the Behave tests. Check the results." });
             await github.rest.issues.createComment(issueComment);
