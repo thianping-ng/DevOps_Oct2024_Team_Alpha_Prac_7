@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest # use linux os
 
     permissions:
+      contents: read
       issues: write
       checks: write
       pull-requests: write
@@ -45,14 +46,20 @@ jobs:
           ls  test-results/
       
       #Step 5a: Upload Test results
+
+      - name: create a temp directory to store the artifact
+        run:  |
+          mkdir -p path/to/dir-1
+          echo test-results > path/to/dir-1/file1.xml
+
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
           name: junit-test-results
-          path: test-results/
+          path: path/to/dir-1/file1.xml
+
       #Step: 5b: Publish Test results
       - name: Publish test Results
-        if: always() #this will run regardless of success/failure
         uses:  actions/github-script@v6
         with:  
           script: |
