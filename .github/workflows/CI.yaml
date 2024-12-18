@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: junit-test-results
-          path: path/to/dir-1/file1.xml
+          path: test-results
 
       #Step: 5b: Publish Test results
       - name: Publish test Results
