@@ -47,12 +47,6 @@ jobs:
       
       #Step 5a: Upload Test results
 
-      - name: create a temp directory to store the artifact
-        run:  |
-          mkdir -p path/to/dir-1
-          echo test-results > path/to/dir-1/file1.xml
-        shell: bash
-
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
