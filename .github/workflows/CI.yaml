@@ -75,7 +75,7 @@ jobs:
       - name: download-path
         uses: actions/download-artifact@v4
         with:
-          path: C:\Users\thian\Downloads
+          path: C:/Users/thian/Downloads
 
       #Step 6a: Create Issue
       - name: Create an issue if tests fail
