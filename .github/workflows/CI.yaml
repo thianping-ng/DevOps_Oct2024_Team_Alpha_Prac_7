@@ -86,5 +86,5 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          path: ./test-results
+          name: junit-test-results
       
