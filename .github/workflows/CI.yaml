@@ -73,9 +73,6 @@ jobs:
             });
             console.log(checkRun);
       
-      - uses: actions/download-artifact@v4
-        with:
-          path: Users/thian/Downloads
 
       #Step 6a: Create Issue
       - name: Create an issue if tests fail
@@ -85,4 +82,7 @@ jobs:
           title:  "Test failure detected"
           body: "Test have failed in the behave tests. please review the logs."
           labels: "bug"
+
+      - name: Display structure of downloaded files
+        run: ls -R
       
