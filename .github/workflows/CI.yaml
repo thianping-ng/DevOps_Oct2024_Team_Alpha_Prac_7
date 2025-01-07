@@ -101,7 +101,7 @@ jobs:
       - name: Prepare files
         run: |
           mkdir -p release
-          cp -r ./calculators.py ./release/calculator-Ng_Thian_Ping.py
+          cp -r ./calculator.py ./release/calculator-Ng_Thian_Ping.py
           echo "Deployment files prepared."
           ls -l ./release/
 
